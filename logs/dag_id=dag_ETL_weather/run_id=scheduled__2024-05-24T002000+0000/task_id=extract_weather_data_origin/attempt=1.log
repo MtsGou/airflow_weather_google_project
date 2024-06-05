@@ -1,0 +1,3 @@
+[2024-06-04T12:37:40.930+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T12:37:41.013+0000] {taskinstance.py:2066} INFO - Dependencies not met for <TaskInstance: dag_ETL_weather.extract_weather_data_origin scheduled__2024-05-24T00:20:00+00:00 [skipped]>, dependency 'Task Instance State' FAILED: Task is in the 'skipped' state.
+[2024-06-04T12:37:41.045+0000] {local_task_job_runner.py:163} INFO - Task is not able to be run

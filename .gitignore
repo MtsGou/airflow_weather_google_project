@@ -1,0 +1,6 @@
+images
+images/
+observacoes.txt
+.md
+!README.md
+/dags/__pycache__/

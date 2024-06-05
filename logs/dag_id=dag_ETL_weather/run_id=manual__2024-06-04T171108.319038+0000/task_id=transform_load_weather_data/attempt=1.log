@@ -1,0 +1,107 @@
+[2024-06-04T17:11:40.581+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T17:11:40.844+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T17:11:08.319038+00:00 [queued]>
+[2024-06-04T17:11:41.015+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T17:11:08.319038+00:00 [queued]>
+[2024-06-04T17:11:41.052+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2024-06-04T17:11:41.228+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform_load_weather_data> on 2024-06-04 17:11:08.319038+00:00
+[2024-06-04T17:11:41.543+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=314) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T17:11:41.597+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'dag_ETL_weather', 'transform_load_weather_data', 'manual__2024-06-04T17:11:08.319038+00:00', '--job-id', '71', '--raw', '--subdir', 'DAGS_FOLDER/dag_ETL_weather.py', '--cfg-path', '/tmp/tmphi6skhso']
+[2024-06-04T17:11:41.623+0000] {standard_task_runner.py:91} INFO - Job 71: Subtask transform_load_weather_data
+[2024-06-04T17:11:41.609+0000] {standard_task_runner.py:63} INFO - Started process 316 to run task
+[2024-06-04T17:11:42.166+0000] {task_command.py:426} INFO - Running <TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T17:11:08.319038+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T17:11:42.987+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='dag_ETL_weather' AIRFLOW_CTX_TASK_ID='transform_load_weather_data' AIRFLOW_CTX_EXECUTION_DATE='2024-06-04T17:11:08.319038+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-04T17:11:08.319038+00:00'
+[2024-06-04T17:11:43.025+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T17:11:43.295+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2024-06-04T17:11:43.741+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T17:11:43.745+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column "wind_Speed" of relation "tb_weather" does not exist
+LINE 1: ...O tb_weather (description, temperature, humidity, "wind_Spee...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag_ETL_weather.py", line 56, in transform_load_data
+    df_data.to_sql("tb_weather", engine, if_exists = 'append', method=None, index = False)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column "wind_Speed" of relation "tb_weather" does not exist
+LINE 1: ...O tb_weather (description, temperature, humidity, "wind_Spee...
+                                                             ^
+
+[SQL: INSERT INTO tb_weather (description, temperature, humidity, "wind_Speed", time, clouds, location) VALUES (%(description)s, %(temperature)s, %(humidity)s, %(wind_Speed)s, %(time)s, %(clouds)s, %(location)s)]
+[parameters: {'description': 'clear sky', 'temperature': 23.920000000000016, 'humidity': 54, 'wind_Speed': 2.71, 'time': datetime.datetime(2024, 6, 4, 14, 11, 12), 'clouds': 3, 'location': 'Juiz de Fora'}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2024-06-04T17:11:43.874+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=dag_ETL_weather, task_id=transform_load_weather_data, run_id=manual__2024-06-04T17:11:08.319038+00:00, execution_date=20240604T171108, start_date=20240604T171140, end_date=20240604T171143
+[2024-06-04T17:11:43.931+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 71 for task transform_load_weather_data ((psycopg2.errors.UndefinedColumn) column "wind_Speed" of relation "tb_weather" does not exist
+LINE 1: ...O tb_weather (description, temperature, humidity, "wind_Spee...
+                                                             ^
+
+[SQL: INSERT INTO tb_weather (description, temperature, humidity, "wind_Speed", time, clouds, location) VALUES (%(description)s, %(temperature)s, %(humidity)s, %(wind_Speed)s, %(time)s, %(clouds)s, %(location)s)]
+[parameters: {'description': 'clear sky', 'temperature': 23.920000000000016, 'humidity': 54, 'wind_Speed': 2.71, 'time': datetime.datetime(2024, 6, 4, 14, 11, 12), 'clouds': 3, 'location': 'Juiz de Fora'}]
+(Background on this error at: https://sqlalche.me/e/14/f405); 316)
+[2024-06-04T17:11:44.004+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-04T17:11:44.073+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T17:11:44.078+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

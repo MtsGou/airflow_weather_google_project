@@ -1,0 +1,41 @@
+[2024-06-04T12:53:59.979+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T12:54:00.002+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T12:49:56.748647+00:00 [queued]>
+[2024-06-04T12:54:00.018+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T12:49:56.748647+00:00 [queued]>
+[2024-06-04T12:54:00.020+0000] {taskinstance.py:2306} INFO - Starting attempt 4 of 4
+[2024-06-04T12:54:00.046+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform_load_weather_data> on 2024-06-04 12:49:56.748647+00:00
+[2024-06-04T12:54:00.054+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=248) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T12:54:00.057+0000] {standard_task_runner.py:63} INFO - Started process 251 to run task
+[2024-06-04T12:54:00.057+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'dag_ETL_weather', 'transform_load_weather_data', 'manual__2024-06-04T12:49:56.748647+00:00', '--job-id', '30', '--raw', '--subdir', 'DAGS_FOLDER/dag_ETL_weather.py', '--cfg-path', '/tmp/tmpmsl12zzl']
+[2024-06-04T12:54:00.060+0000] {standard_task_runner.py:91} INFO - Job 30: Subtask transform_load_weather_data
+[2024-06-04T12:54:00.134+0000] {task_command.py:426} INFO - Running <TaskInstance: dag_ETL_weather.transform_load_weather_data manual__2024-06-04T12:49:56.748647+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T12:54:00.264+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='dag_ETL_weather' AIRFLOW_CTX_TASK_ID='transform_load_weather_data' AIRFLOW_CTX_EXECUTION_DATE='2024-06-04T12:49:56.748647+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-04T12:49:56.748647+00:00'
+[2024-06-04T12:54:00.267+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T12:54:00.286+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T12:54:00.287+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dag_ETL_weather.py", line 14, in transform_load_data
+    data[0] = task_instance.xcom_pull(task_ids="extract_weather_data_origin")
+    ~~~~^^^
+IndexError: list assignment index out of range
+[2024-06-04T12:54:00.309+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=dag_ETL_weather, task_id=transform_load_weather_data, run_id=manual__2024-06-04T12:49:56.748647+00:00, execution_date=20240604T124956, start_date=20240604T125400, end_date=20240604T125400
+[2024-06-04T12:54:00.330+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 30 for task transform_load_weather_data (list assignment index out of range; 251)
+[2024-06-04T12:54:00.354+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-04T12:54:00.375+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T12:54:00.378+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

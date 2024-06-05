@@ -1,0 +1,69 @@
+[2024-06-04T15:14:55.781+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T15:14:55.866+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: create_tables.task_create_tb_weather scheduled__2024-06-04T00:00:00+00:00 [queued]>
+[2024-06-04T15:14:55.892+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: create_tables.task_create_tb_weather scheduled__2024-06-04T00:00:00+00:00 [queued]>
+[2024-06-04T15:14:55.894+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-06-04T15:14:55.942+0000] {taskinstance.py:2330} INFO - Executing <Task(PostgresOperator): task_create_tb_weather> on 2024-06-04 00:00:00+00:00
+[2024-06-04T15:14:55.967+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=407) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T15:14:55.975+0000] {standard_task_runner.py:63} INFO - Started process 409 to run task
+[2024-06-04T15:14:55.974+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'create_tables', 'task_create_tb_weather', 'scheduled__2024-06-04T00:00:00+00:00', '--job-id', '48', '--raw', '--subdir', 'DAGS_FOLDER/create_tables.py', '--cfg-path', '/tmp/tmpn6s0hbwe']
+[2024-06-04T15:14:55.982+0000] {standard_task_runner.py:91} INFO - Job 48: Subtask task_create_tb_weather
+[2024-06-04T15:14:56.131+0000] {task_command.py:426} INFO - Running <TaskInstance: create_tables.task_create_tb_weather scheduled__2024-06-04T00:00:00+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T15:14:56.430+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='create_tables' AIRFLOW_CTX_TASK_ID='task_create_tb_weather' AIRFLOW_CTX_EXECUTION_DATE='2024-06-04T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-06-04T00:00:00+00:00'
+[2024-06-04T15:14:56.440+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T15:14:56.441+0000] {sql.py:276} INFO - Executing: 
+CREATE TABLE IF NOT EXISTS tb_weather 
+(Description VARCHAR(250) NOT NULL,
+ Temperature double precision NOT NULL,
+ Humidity integer NOT NULL,
+ Wind Speed double precision NOT NULL,
+ Time timestamp without time zone NOT NULL,
+ Clouds integer NOT NULL,
+ Location VARCHAR(250) NOT NULL
+ );
+ 
+[2024-06-04T15:14:56.482+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2024-06-04T15:14:56.526+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2024-06-04T15:14:56.699+0000] {sql.py:470} INFO - Running statement: 
+CREATE TABLE IF NOT EXISTS tb_weather 
+(Description VARCHAR(250) NOT NULL,
+ Temperature double precision NOT NULL,
+ Humidity integer NOT NULL,
+ Wind Speed double precision NOT NULL,
+ Time timestamp without time zone NOT NULL,
+ Clouds integer NOT NULL,
+ Location VARCHAR(250) NOT NULL
+ );
+ , parameters: None
+[2024-06-04T15:14:56.723+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T15:14:56.726+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.SyntaxError: syntax error at or near "double"
+LINE 6:  Wind Speed double precision NOT NULL,
+                    ^
+
+[2024-06-04T15:14:56.775+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=create_tables, task_id=task_create_tb_weather, run_id=scheduled__2024-06-04T00:00:00+00:00, execution_date=20240604T000000, start_date=20240604T151455, end_date=20240604T151456
+[2024-06-04T15:14:56.825+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 48 for task task_create_tb_weather (syntax error at or near "double"
+LINE 6:  Wind Speed double precision NOT NULL,
+                    ^
+; 409)
+[2024-06-04T15:14:56.883+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-04T15:14:56.945+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T15:14:56.949+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

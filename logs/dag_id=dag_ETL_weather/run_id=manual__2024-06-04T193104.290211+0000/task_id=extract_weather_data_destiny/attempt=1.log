@@ -1,0 +1,26 @@
+[2024-06-04T19:31:23.133+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T19:31:23.196+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dag_ETL_weather.extract_weather_data_destiny manual__2024-06-04T19:31:04.290211+00:00 [queued]>
+[2024-06-04T19:31:23.219+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dag_ETL_weather.extract_weather_data_destiny manual__2024-06-04T19:31:04.290211+00:00 [queued]>
+[2024-06-04T19:31:23.221+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2024-06-04T19:31:23.242+0000] {taskinstance.py:2330} INFO - Executing <Task(SimpleHttpOperator): extract_weather_data_destiny> on 2024-06-04 19:31:04.290211+00:00
+[2024-06-04T19:31:23.252+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=93) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T19:31:23.255+0000] {standard_task_runner.py:63} INFO - Started process 95 to run task
+[2024-06-04T19:31:23.256+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'dag_ETL_weather', 'extract_weather_data_destiny', 'manual__2024-06-04T19:31:04.290211+00:00', '--job-id', '151', '--raw', '--subdir', 'DAGS_FOLDER/dag_ETL_weather.py', '--cfg-path', '/tmp/tmp5v5zl1iv']
+[2024-06-04T19:31:23.260+0000] {standard_task_runner.py:91} INFO - Job 151: Subtask extract_weather_data_destiny
+[2024-06-04T19:31:23.362+0000] {task_command.py:426} INFO - Running <TaskInstance: dag_ETL_weather.extract_weather_data_destiny manual__2024-06-04T19:31:04.290211+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T19:31:23.483+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='dag_ETL_weather' AIRFLOW_CTX_TASK_ID='extract_weather_data_destiny' AIRFLOW_CTX_EXECUTION_DATE='2024-06-04T19:31:04.290211+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-04T19:31:04.290211+00:00'
+[2024-06-04T19:31:23.485+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T19:31:23.486+0000] {http.py:169} INFO - Calling HTTP method
+[2024-06-04T19:31:23.497+0000] {base.py:84} INFO - Using connection ID 'weathermap_api' for task execution.
+[2024-06-04T19:31:23.510+0000] {base.py:84} INFO - Using connection ID 'weathermap_api' for task execution.
+[2024-06-04T19:31:23.959+0000] {http.py:208} INFO - {"coord":{"lon":-43.2075,"lat":-22.9028},"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations","main":{"temp":296.14,"feels_like":296.69,"temp_min":296.13,"temp_max":297.12,"pressure":1021,"humidity":84},"visibility":9000,"wind":{"speed":6.17,"deg":140},"clouds":{"all":75},"dt":1717529455,"sys":{"type":1,"id":8429,"country":"BR","sunrise":1717493264,"sunset":1717532102},"timezone":-10800,"id":3451190,"name":"Rio de Janeiro","cod":200}
+[2024-06-04T19:31:23.962+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T19:31:23.983+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=dag_ETL_weather, task_id=extract_weather_data_destiny, run_id=manual__2024-06-04T19:31:04.290211+00:00, execution_date=20240604T193104, start_date=20240604T193123, end_date=20240604T193123
+[2024-06-04T19:31:24.042+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-04T19:31:24.054+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/models/baseoperator.py:1296: AirflowProviderDeprecationWarning: Call to deprecated class SimpleHttpOperator. (Class `SimpleHttpOperator` is deprecated and will be removed in a future release. Please use `HttpOperator` instead.)
+  result = cls.__new__(cls)
+
+[2024-06-04T19:31:24.065+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T19:31:24.068+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

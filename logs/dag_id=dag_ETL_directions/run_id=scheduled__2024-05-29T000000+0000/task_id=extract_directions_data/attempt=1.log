@@ -1,0 +1,438 @@
+[2024-06-04T13:06:09.322+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T13:06:09.431+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: dag_ETL_directions.extract_directions_data scheduled__2024-05-29T00:00:00+00:00 [queued]>
+[2024-06-04T13:06:09.473+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: dag_ETL_directions.extract_directions_data scheduled__2024-05-29T00:00:00+00:00 [queued]>
+[2024-06-04T13:06:09.475+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2024-06-04T13:06:09.537+0000] {taskinstance.py:2330} INFO - Executing <Task(SimpleHttpOperator): extract_directions_data> on 2024-05-29 00:00:00+00:00
+[2024-06-04T13:06:09.586+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=414) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T13:06:09.591+0000] {standard_task_runner.py:63} INFO - Started process 418 to run task
+[2024-06-04T13:06:09.596+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'dag_ETL_directions', 'extract_directions_data', 'scheduled__2024-05-29T00:00:00+00:00', '--job-id', '38', '--raw', '--subdir', 'DAGS_FOLDER/dag_ETL_directions.py', '--cfg-path', '/tmp/tmpw3u8150p']
+[2024-06-04T13:06:09.603+0000] {standard_task_runner.py:91} INFO - Job 38: Subtask extract_directions_data
+[2024-06-04T13:06:09.906+0000] {task_command.py:426} INFO - Running <TaskInstance: dag_ETL_directions.extract_directions_data scheduled__2024-05-29T00:00:00+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T13:07:13.848+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 192, in heartbeat
+    self._merge_from(Job._fetch_from_db(self, session))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 89, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 347, in __iter__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 325, in iter
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 158, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 98, in wrapped_function
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 316, in _fetch_from_db
+    session.merge(job)
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2024-06-04T13:08:47.222+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2024-06-04T13:08:47.606+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='dag_ETL_directions' AIRFLOW_CTX_TASK_ID='extract_directions_data' AIRFLOW_CTX_EXECUTION_DATE='2024-05-29T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-05-29T00:00:00+00:00'
+[2024-06-04T13:08:47.626+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T13:08:47.633+0000] {http.py:169} INFO - Calling HTTP method
+[2024-06-04T13:08:47.697+0000] {base.py:84} INFO - Using connection ID 'directions_api' for task execution.
+[2024-06-04T13:08:47.746+0000] {base.py:84} INFO - Using connection ID 'directions_api' for task execution.
+[2024-06-04T13:08:49.397+0000] {http.py:208} INFO - {
+   "geocoded_waypoints" : 
+   [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJoV344UOcmAARaKSgsyawNmI",
+         "types" : 
+         [
+            "locality",
+            "political"
+         ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJS0ODCuqPmAARjwi3K0pt7mM",
+         "types" : 
+         [
+            "locality",
+            "political"
+         ]
+      }
+   ],
+   "routes" : 
+   [
+      {
+         "bounds" : 
+         {
+            "northeast" : 
+            {
+               "lat" : -21.7616939,
+               "lng" : -43.3048931
+            },
+            "southwest" : 
+            {
+               "lat" : -21.8680457,
+               "lng" : -43.343484
+            }
+         },
+         "copyrights" : "Map data ©2024",
+         "legs" : 
+         [
+            {
+               "distance" : 
+               {
+                  "text" : "19.7 km",
+                  "value" : 19669
+               },
+               "duration" : 
+               {
+                  "text" : "27 mins",
+                  "value" : 1625
+               },
+               "end_address" : "Matias Barbosa, State of Minas Gerais, 36120-000, Brazil",
+               "end_location" : 
+               {
+                  "lat" : -21.8680211,
+                  "lng" : -43.3177169
+               },
+               "start_address" : "Juiz de Fora, State of Minas Gerais, Brazil",
+               "start_location" : 
+               {
+                  "lat" : -21.7623236,
+                  "lng" : -43.343484
+               },
+               "steps" : 
+               [
+                  {
+                     "distance" : 
+                     {
+                        "text" : "3.2 km",
+                        "value" : 3231
+                     },
+                     "duration" : 
+                     {
+                        "text" : "5 mins",
+                        "value" : 308
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.7779044,
+                        "lng" : -43.3276716
+                     },
+                     "html_instructions" : "Head \u003cb\u003eeast\u003c/b\u003e on \u003cb\u003eBR-267\u003c/b\u003e toward \u003cb\u003eR. Dr. Paulo Frontin\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eTv. Dr. Prisco\u003c/b\u003e",
+                     "polyline" : 
+                     {
+                        "points" : "nmycCvopgGAMAO]cC_@oCS{AIs@Em@E_@AS?W?S@W@a@F{@DcBAMEOAEEMGQACCOCQ?W@OBQ@OBKTgAPgAZoA|@wCb@s@d@}@`@g@TWVW|AqA\\Y`@c@Z[`@c@TUd@a@`@a@LSJWFUBGX}ANmAn@kDj@_DJq@DSJ]FSHMJQJORMTMLCRERCPCV?V@`@Fd@HdBTZFD?B@H@RBFBF@RDL@VFJBH@dALN@NBPBPBHBXDb@Fh@JPDVFlAPLBZDb@FF@F@PBLJF@N?R@RARCLERMPMPOVYFIf@y@R[^g@l@y@JMLKJIRKJGJCXKd@Cd@@R?TDLBTDPDLDTNRJDBv@b@d@XJFvAz@B?bAh@rAp@TJXJRDP@P@T?TEPGNIRKJQBGFKBIDWH]Fc@RgAL_ATiBVgBPgA@GRkA"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.7623236,
+                        "lng" : -43.343484
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : 
+                     {
+                        "text" : "5.5 km",
+                        "value" : 5514
+                     },
+                     "duration" : 
+                     {
+                        "text" : "7 mins",
+                        "value" : 423
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.7909828,
+                        "lng" : -43.3050309
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eBR-267\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : 
+                     {
+                        "points" : "zn|cC|lmgGlAcJHm@H_@Fg@@_@@OAW@OAWC]E[EYO_@G[ESEUEYCa@Bw@J[L]f@aAf@w@d@w@PWRUJINOb@[VMTI`@KTCRAF?^@B?P@PBFBPD\\NFBLFPLVRBBXXXV@@VV@@DDB@d@b@\\`@bAnBJPNJNH^Nl@PVLVPJJHHLP?@PNVRTJZLXLZL^N\\PJBLDZLTFZBH?JAVGVOxAaBl@s@b@i@V_@Xk@Tm@LYHOLKLIHCDAj@AH@HBHBHFNLLPNXJPBFNXHPR\\NXNRX`@b@h@rEfFTXTTLNPRJLFLFJFJNVBFFFDFFF@@DBFDHDTBJ@L?TCVKPOHGFI@GBG@GBIBY@O@M@M?M@K?K?I?O?IAKCS?IAIAIAECGAICGAI?I?G?GAM?G@I?E@E@G@G@EFSDKBEBEFIFGJIFCZMRAN?PAX@n@@lAHX@vATNBNDf@N`@P^PRFRHB?H@L?NANENGLKHKFKFS?ABK?A?K?K?CCa@AOCUCa@?EEc@?AEe@?AG_@G]WkAAGCSC[Aa@?g@?[ACCWE[IYIYGSGUEa@Ee@C_@Cc@AKCOGU?CM]GMISEIa@w@i@iAc@w@MSO[M[O_@I[Ga@GYIe@I[K]M_@MYWo@KSISGMIQAEO[GMACO]?AM_@?AK_@ACIe@My@e@_CI]GWESKWOc@_@_Au@iB[m@U[USWMa@QOGc@OKCa@I[Ck@?G?[?K?]CUESISMMMk@{@QYo@iACGOa@Me@Kq@Im@YgBOkACY?Q?O@MBMDOFQDGBENSBANQRSLKHMJMHMLULWLYPYNWPYP[T_@BIJUN]h@mAPc@HOFIHIFIJIRMTI`A]hA_@XITEVCT@B?b@Dp@H`@H"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.7779044,
+                        "lng" : -43.3276716
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : 
+                     {
+                        "text" : "54 m",
+                        "value" : 54
+                     },
+                     "duration" : 
+                     {
+                        "text" : "1 min",
+                        "value" : 9
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.791332,
+                        "lng" : -43.3053749
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e toward \u003cb\u003eEstr. União Indústria\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : 
+                     {
+                        "points" : "r`_dCl_igGBF@BBBHBZZ@DBDBBB@D@@?"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.7909828,
+                        "lng" : -43.3050309
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : 
+                     {
+                        "text" : "10.2 km",
+                        "value" : 10192
+                     },
+                     "duration" : 
+                     {
+                        "text" : "13 mins",
+                        "value" : 794
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.8631767,
+                        "lng" : -43.314326
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eEstr. União Indústria\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : 
+                     {
+                        "points" : "xb_dCpaigGNRBDDFNLJl@BJDTJRHPFFHFFDL@PDnA@`BD~@?TCZITONMLUVo@FEHIJINIDCDAFADAD?DAF?D?F?D@D?F@HBDBB@B@BBB@BDHFFHFLXl@^v@^x@Td@LZ@@FJDHBD@@DDDFFDDBFDJBHDHBHBH@PDRBNBHBJBJDTFd@PXN^V\\RHFf@^\\XLJLJJNBDBDBDDDBFBHBF?D@F@F@H?J@N@f@Bj@@LBLBJDJNVJPDFDBDBDBF@DBD@F@F?F@H?J@NCFANELEJEJIPOt@y@HINITGR?J?F@JBFBHDHDLL^`@nDzDb@h@B@PRPJXNJFh@LlAV\\HhCn@@@f@NvAn@b@Pl@VbBj@zBx@r@Tt@\\ZL`@TNLFHFNDRH`@DXBLBRDLFJDFHHHFHBLBZ?f@Gn@EZATBdBl@d@NvDrAb@PJDVRJJJJb@l@JPt@bAj@bAHPDLHRNb@BDRb@FJ`@jAFNHPJNJLHFHFFBJDJB@?F@L@L?HAD?HCFADCFCDEDC@AFGZ_@PYXa@Z_@HM@?NMHEJEPEJCNCL?R?L@@?PBL@@@NBHDFBD@RHDBZR`@Rn@\\b@PJB^L@?PHLHPFLB@?J@F?F?JAJCRKPOTQRSVWPOPQJGJEJGPGf@MVKv@Ud@MNEl@Ov@Ul@MNELAJCHARAH?H@H?D@FBHBHBHFJJDDBFDBBFBD@FBH@F?F@F?F@F?DAD?FCf@CTANATAN?N@L@LBHHPLJNLHFFBJBF?B@L?H?RAj@A^Ad@AB@H?NBF@JBPHB@p@j@x@x@XX@@VVb@d@d@`@HDJBJ@TBJ?FABAHAHEDCRYx@wAZ[DEFEDCFAREN?P@DAD@B?@?B?D@D?LBB@n@PfAd@nBr@\\LvAh@`@LvAh@HFHDBFJJJNN`@DPLb@@FDJ`@tALb@DLj@vAV^\\V\\Tp@\\j@RPH@?JB^Hd@Bb@ANA^IjA[@?vAi@f@W@?TQ~AkB^e@n@y@FILQV]V]V[T]TYTWJKPMBCROHEBCNGRGPGb@GFA~DSbDMn@?F?r@BdFf@n@BxBDPC\\G`@KNGNGTIb@WVQBA`@[r@q@p@u@n@m@j@g@jAw@\\Wd@[PS@?JMHOBGHYDW?G@M@m@?q@?E?SAe@@QFe@BK@I?CBGDODO@CBA@EBGDIHMT]@CTWFI`@[XWJI^YLI\\UnAcAVUz@o@jA{@VUp@o@b@u@JKl@s@JKLKf@]RMDARI\\KDAJADAFAFCDEDEDGLSPUHKJQDGHOBGDILOBCBEHINKJI\\Uj@]\\SXQVQb@W^SVOVM\\Mb@O^OPGfFwAr@OvAMp@GjAMl@INEHETGNGVK^QZQRKNGLCNCJAHAL@PBNDVJFD\\RJFnAp@ZLXHTDTBJ@H@vJZxA@b@CPCNIz@i@nAILBJDJHDDRNFFj@b@hAt@FFJHDFHJJRFPJRT\\LJNJNFRDNBd@?TCJCJCJGbAi@b@[JELINCD?XAT?nA@ZGZIr@ULCLAN?NDNFNJPRHRDR@T@NDZFZHZHZBJ`AxBf@|@xApBfBrBDDJNJPHP@@PZXl@Xj@@DDHFJFJJLLNLLPPPNRR"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.791332,
+                        "lng" : -43.3053749
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : 
+                     {
+                        "text" : "0.7 km",
+                        "value" : 674
+                     },
+                     "duration" : 
+                     {
+                        "text" : "1 min",
+                        "value" : 86
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.8680457,
+                        "lng" : -43.317684
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Cardoso Saraíva\u003c/b\u003e",
+                     "polyline" : 
+                     {
+                        "points" : "zcmdCpyjgGx@p@VVJLPXJP@@HPFN@BJX@DDVDJJ^?BNXNTJLZZ`@ZVFp@NNFPJ`@Z`@P^Hb@LxDv@XHZJJDD@TDl@L`@JD?JDJBJFHDZR"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.8631767,
+                        "lng" : -43.314326
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : 
+                     {
+                        "text" : "4 m",
+                        "value" : 4
+                     },
+                     "duration" : 
+                     {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : 
+                     {
+                        "lat" : -21.8680211,
+                        "lng" : -43.3177169
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Mal. Deodoro\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : 
+                     {
+                        "points" : "hbndCnnkgGEF"
+                     },
+                     "start_location" : 
+                     {
+                        "lat" : -21.8680457,
+                        "lng" : -43.317684
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : 
+         {
+            "points" : "nmycCvopgGaAqHi@}E?wAH}ABqBUu@I}@J}@f@oCxAgFhAqBv@_AtDgDxBwBn@u@Rm@|A_JhAcGh@cAh@[`@Id@Gn@@hEn@xATnLjBnAP^NV@hAInAeAbBgCrA}AdAc@jAAh@DbATfBbAlC|AfErBlAHf@Mb@UZo@j@aDzD_YPgABo@E}Ac@qBUeBNsAt@_BrB}C~@u@l@Wv@O~@?|@NdAh@nAhA`@`@h@d@\\`@bAnBZ\\n@XdA^b@\\h@l@bBz@dBr@h@Rp@Jl@IpBqBpA}Ap@kAb@gAV[VMp@CRDp@j@lBjDhJtK`A|AXPdA@h@[PQJa@JuBK}AMkAPgATa@v@c@nAA|BJpBVhBj@jAb@V@^G\\SPWJc@C}@U{Ci@qCIyBKsAc@}ASkCMu@e@iA}BmEw@sBc@}BgBoEy@uBcBmI{@{BqAwCk@o@mBw@m@MgACmACi@Oa@[qBgD]gAU_Bi@sDCk@J{@`@s@t@s@jBcD|@_BvAeDb@m@vB_AbBi@l@InBPd@PDFd@^DJNFh@n@`@bBb@f@pENtACp@Y\\c@^u@j@a@t@G\\FPJXX`BlD~@fBZVh@PvBd@|BlA|AlAr@dAJbAJnBd@`AVRZHd@Bt@QVOfAiAXSh@Gf@H`Az@hFzFj@Zt@TvFrApEhBhIxC|@b@VV\\~ATz@b@\\h@BvAMp@@jC|@zEdBb@XfAvA`BfCN^p@`Bz@xBj@l@`@Ll@@\\ITOnAcBv@{@r@Up@Cn@Fb@Nz@b@`CfA`A`@l@Lf@Ed@[h@e@fAaApAc@dCu@bDy@v@Ib@Bd@RZ\\L^Bz@KbB@z@LZ\\Xd@NdDCl@HTJjBdBvAxAn@f@VDl@?RGX]x@wAZ[LKLEb@E`@@P@PDvBv@fGxB`Bp@LLVZTr@v@lCRp@bAvBz@l@|Ap@~@VhA@n@KlA[~BaAVQ~BqC|AsBzAqBv@u@p@a@pAYbJa@v@?xGj@hDH`B_@`B{@jCeCzAuAhBoAdA}@\\iA@uDNmANk@r@mAxAuAvAcAnFeEhAeAn@aAx@_At@i@jAe@^GXWnAqB^c@dBiArBoAlB_A|H_CjC]|BU|@O^MbBw@`A[t@@lAj@zAx@t@V`ALpM\\t@GjAs@|AEp@d@dChBf@p@Rd@b@h@r@Xt@B`@G~BqAn@Sn@AnA@ZGnA_@ZE^D^RZf@Fh@XbBLf@hBvDrEzFdBjDh@t@dAbApAhA\\f@^t@v@dCZb@|@v@hAV`@RbAl@bAVzFrAtCr@d@XEF"
+         },
+         "summary" : "BR-267 and Estr. União Indústria",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}
+[2024-06-04T13:08:49.408+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T13:08:49.633+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=dag_ETL_directions, task_id=extract_directions_data, run_id=scheduled__2024-05-29T00:00:00+00:00, execution_date=20240529T000000, start_date=20240604T130609, end_date=20240604T130849
+[2024-06-04T13:08:49.800+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-06-04T13:08:49.870+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/models/baseoperator.py:1296: AirflowProviderDeprecationWarning: Call to deprecated class SimpleHttpOperator. (Class `SimpleHttpOperator` is deprecated and will be removed in a future release. Please use `HttpOperator` instead.)
+  result = cls.__new__(cls)
+
+[2024-06-04T13:08:49.950+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T13:08:49.979+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

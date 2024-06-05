@@ -1,0 +1,68 @@
+[2024-06-04T15:14:31.285+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-06-04T15:14:31.485+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: create_tables.task_create_tb_directions manual__2024-06-04T15:14:08.245095+00:00 [queued]>
+[2024-06-04T15:14:31.588+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: create_tables.task_create_tb_directions manual__2024-06-04T15:14:08.245095+00:00 [queued]>
+[2024-06-04T15:14:31.593+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-06-04T15:14:31.666+0000] {taskinstance.py:2330} INFO - Executing <Task(PostgresOperator): task_create_tb_directions> on 2024-06-04 15:14:08.245095+00:00
+[2024-06-04T15:14:31.692+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=394) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-06-04T15:14:31.698+0000] {standard_task_runner.py:63} INFO - Started process 406 to run task
+[2024-06-04T15:14:31.698+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'create_tables', 'task_create_tb_directions', 'manual__2024-06-04T15:14:08.245095+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/create_tables.py', '--cfg-path', '/tmp/tmp455k79tg']
+[2024-06-04T15:14:31.710+0000] {standard_task_runner.py:91} INFO - Job 46: Subtask task_create_tb_directions
+[2024-06-04T15:14:31.962+0000] {task_command.py:426} INFO - Running <TaskInstance: create_tables.task_create_tb_directions manual__2024-06-04T15:14:08.245095+00:00 [running]> on host 6b740a15ab9e
+[2024-06-04T15:14:32.715+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Matheus' AIRFLOW_CTX_DAG_ID='create_tables' AIRFLOW_CTX_TASK_ID='task_create_tb_directions' AIRFLOW_CTX_EXECUTION_DATE='2024-06-04T15:14:08.245095+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-06-04T15:14:08.245095+00:00'
+[2024-06-04T15:14:32.734+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-06-04T15:14:32.736+0000] {sql.py:276} INFO - Executing: 
+CREATE TABLE IF NOT EXISTS tb_directions 
+(Travel_distance integer NOT NULL,
+ Travel_duration integer NOT NULL,
+ Destination VARCHAR(300) NOT NULL,
+ Origin VARCHAR(300) NOT NULL,
+ Summary_highway VARCHAR(250) NOT NULL,
+ Time timestamp without time zone NOT NULL
+ );
+ 
+[2024-06-04T15:14:32.791+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2024-06-04T15:14:32.860+0000] {base.py:84} INFO - Using connection ID 'postgres_conn' for task execution.
+[2024-06-04T15:14:34.364+0000] {sql.py:470} INFO - Running statement: 
+CREATE TABLE IF NOT EXISTS tb_directions 
+(Travel_distance integer NOT NULL,
+ Travel_duration integer NOT NULL,
+ Destination VARCHAR(300) NOT NULL,
+ Origin VARCHAR(300) NOT NULL,
+ Summary_highway VARCHAR(250) NOT NULL,
+ Time timestamp without time zone NOT NULL
+ );
+ , parameters: None
+[2024-06-04T15:14:36.645+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-06-04T15:14:36.653+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+DETAIL:  Key (typname, typnamespace)=(tb_directions, 2200) already exists.
+
+[2024-06-04T15:14:36.708+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=create_tables, task_id=task_create_tb_directions, run_id=manual__2024-06-04T15:14:08.245095+00:00, execution_date=20240604T151408, start_date=20240604T151431, end_date=20240604T151436
+[2024-06-04T15:14:36.866+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 46 for task task_create_tb_directions (duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+DETAIL:  Key (typname, typnamespace)=(tb_directions, 2200) already exists.
+; 406)
+[2024-06-04T15:14:36.956+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-06-04T15:14:37.009+0000] {warnings.py:110} WARNING - /home/***/.local/lib/python3.12/site-packages/***/models/baseoperator.py:1296: AirflowProviderDeprecationWarning: Call to deprecated class PostgresOperator. (Please use `***.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+  result = cls.__new__(cls)
+
+[2024-06-04T15:14:37.110+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-06-04T15:14:37.121+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
